@@ -1,6 +1,7 @@
 # Martuor Dysiphon Banking System
 
 Welcome to the Martuor Dysiphon Banking System README! This C# application simulates a basic banking system with features like deposit, withdrawal, and balance checking for cardholders. The application is implemented using object-oriented programming principles and provides a simple user interface through the console.
+![Screenshot (1)](https://github.com/MartuorDysiphon/Console-ATM-C-/assets/129260867/4a1c4d6b-b95c-49c2-b3d2-77462f13eb5b)
 
 ## Table of Contents
 
