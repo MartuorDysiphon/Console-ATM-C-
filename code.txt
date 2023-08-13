@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -78,16 +78,6 @@ public class cardHolder
         
     public static void Main(string[] args)
     {
-        void homePrintOptions()
-        {
-            Console.WriteLine("Please Choose from one of the following options.......");
-            Console.WriteLine("1. Existing Client");
-            Console.WriteLine("2. New Client");
-            Console.WriteLine("3. Exit");
-        }
-
-
-
         void printOptions()
         {
 
@@ -136,101 +126,76 @@ public class cardHolder
         cardHolders.Add(new cardHolder("19348628", 3671, "Karabo", "Maila", 67.81));
         cardHolders.Add(new cardHolder("13492671", 2468, "Jamal", "Samson", 3667.81));
 
+        //prompt user Console.WriteLine("");
         Console.WriteLine("Welcome To Martuor Dysiphon Banking Systems:");
-        int homeOption = 0;
-        do
+        Console.WriteLine("Please Enter your account Number: ");
+        string accountNumber = "";
+        cardHolder currentUser;
+
+        while (true)
         {
-            homePrintOptions();
             try
             {
-                homeOption = int.Parse(Console.ReadLine());
+                accountNumber = Console.ReadLine();
+                //database verification
+                currentUser = cardHolders.FirstOrDefault(a => a.cardNo == accountNumber);
+                if (currentUser != null)
+                {
+                    break;
+                }
+                else 
+                { 
+                    Console.WriteLine("Account not reconised. Enter a valid Account Number!");
+                } 
+            }
+
+            catch
+            {
+                Console.WriteLine("Account not reconised. Enter a valid Account Number!");
+            }
+        }
+
+        Console.WriteLine("Please Enter your account Pin : ");
+        int userPin = 0;
+        while (true)
+        {
+            try
+            {
+                userPin = int.Parse(Console.ReadLine());
+                //database verification
+                if (currentUser.getPin() == userPin)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect Pin. Please Enter a valid Pin!");
+                }
+            }
+
+            catch 
+            { 
+                Console.WriteLine("Incorrect Pin. Please Enter a valid Pin!");
+            }
+        }
+
+        Console.WriteLine($"Welcome {currentUser.getFirstName()} :) ");
+        int option = 0;
+        do
+        {
+            printOptions();
+            try
+            {
+                option = int.Parse(Console.ReadLine()); 
             }
             catch { }
-            if (homeOption == 1) 
-            {
-                cardHolders.Add(new cardHolder("11286312", 1234, "Amelia", "Adams", 1071.20));
-                cardHolder
-
-            }
-            else if (homeOption == 2) 
-            {
-                //prompt user Console.WriteLine("");
-                Console.WriteLine("Welcome To Martuor Dysiphon Banking Systems:");
-                Console.WriteLine("Please Enter your account Number: ");
-                string accountNumber = "";
-                cardHolder currentUser;
-
-                while (true)
-                {
-                    try
-                    {
-                        accountNumber = Console.ReadLine();
-                        //database verification
-                        currentUser = cardHolders.FirstOrDefault(a => a.cardNo == accountNumber);
-                        if (currentUser != null)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Account not reconised. Enter a valid Account Number!");
-                        }
-                    }
-
-                    catch
-                    {
-                        Console.WriteLine("Account not reconised. Enter a valid Account Number!");
-                    }
-                }
-
-                Console.WriteLine("Please Enter your account Pin : ");
-                int userPin = 0;
-                while (true)
-                {
-                    try
-                    {
-                        userPin = int.Parse(Console.ReadLine());
-                        //database verification
-                        if (currentUser.getPin() == userPin)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Incorrect Pin. Please Enter a valid Pin!");
-                        }
-                    }
-
-                    catch
-                    {
-                        Console.WriteLine("Incorrect Pin. Please Enter a valid Pin!");
-                    }
-                }
-
-                Console.WriteLine($"Welcome {currentUser.getFirstName()} :) ");
-                int option = 0;
-                do
-                {
-                    printOptions();
-                    try
-                    {
-                        option = int.Parse(Console.ReadLine());
-                    }
-                    catch { }
-                    if (option == 1) { deposit(currentUser); }
-                    else if (option == 2) { withdraw(currentUser); }
-                    else if (option == 3) { balance(currentUser); }
-                    else { option = 0; }
-                }
-                while (option != 4);
-                Console.WriteLine("Thank you, Have an amazing day :) ");
-            }
-            else { homeOption = 0; }
+           if (option == 1) { deposit(currentUser); }
+           else if(option == 2) { withdraw(currentUser); }   
+           else if(option==3) { balance(currentUser); }
+           else { option = 0; }
         }
-        while (homeOption != 4);
+        while (option != 4);
         Console.WriteLine("Thank you, Have an amazing day :) ");
-
-        
 
 
     }
